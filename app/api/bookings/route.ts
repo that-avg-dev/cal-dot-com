@@ -24,8 +24,8 @@ export async function POST(request: Request) {
     const startTimestamp = `${booking_date}T${start_time}:00`
     const endTimestamp = `${booking_date}T${end_time}:00`
     
-    // Check for double booking
-    const isDoubleBooked = await checkDoubleBooking(startTimestamp);
+    // Check for double booking (early validation)
+    const isDoubleBooked = await checkDoubleBooking(startTimestamp, endTimestamp);
     
     if (isDoubleBooked) {
       return NextResponse.json({ error: "Time slot already booked" }, { status: 400 })
@@ -41,7 +41,10 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(newBooking)
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message === "DOUBLE_BOOKING_RACE") {
+      return NextResponse.json({ error: "Time slot already booked due to high traffic" }, { status: 400 })
+    }
     console.error("Bookings POST error:", error)
     return NextResponse.json({ error: "Failed to create booking" }, { status: 500 })
   }
