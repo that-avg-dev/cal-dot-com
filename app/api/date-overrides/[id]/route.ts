@@ -1,5 +1,5 @@
-import { sql } from "@/lib/db"
 import { NextResponse } from "next/server"
+import { deleteDateOverride } from "@/lib/services/date-overrides"
 
 export async function DELETE(
   request: Request,
@@ -7,7 +7,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    await sql`DELETE FROM date_overrides WHERE id = ${id}`
+    await deleteDateOverride(id)
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Date override DELETE error:", error)
