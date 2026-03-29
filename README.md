@@ -32,6 +32,12 @@ A full-stack, responsive calendaring and booking application inspired by Cal.com
 
 ---
 
+### CORE FEATURES - ALL DONE
+### BONUS FEATURES - 
+1. RESPONSIVE
+2. DATE OVERRIDES
+3. CUSTOM BOOKING QUESTIONS
+
 ## 💻 Tech Stack
 
 - **Framework**: [Next.js (App Router)](https://nextjs.org/) - React framework for server-rendered UI and API routes.
